@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PMV — The Modern Golf Quarterly</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00ff66",
+                        "background-dark": "#050505",
+                        "card-dark": "#0D0D0D",
+                        "accent-dark": "#141414",
+                    },
+                    fontFamily: {
+                        "serif": ["'Playfair Display'", "serif"],
+                        "sans": ["'Inter'", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-background-dark text-slate-200 font-sans;
+            }
+            h1, h2, h3, h4 {
+                @apply font-serif;
+            }
+        }
+        .editorial-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 1.5rem;
+        }
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        .text-indent {
+            text-indent: 4rem;
+        }
+        .gold-border {
+            border-color: rgba(0, 255, 102, 0.3);
+        }
+        .image-overlay {
+            background: linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.8) 100%);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+<nav class="fixed top-0 z-50 w-full border-b border-white/5 bg-background-dark/90 backdrop-blur-xl">
+<div class="max-w-[1400px] mx-auto px-8 h-24 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="text-3xl font-serif italic tracking-tighter text-white">PMV.</span>
+<div class="h-4 w-[1px] bg-white/20"></div>
+<span class="text-[10px] uppercase tracking-[0.3em] font-medium text-slate-500">Vol. 01 — Issue 04</span>
+</div>
+<div class="hidden md:flex items-center gap-12">
+<a class="text-xs uppercase tracking-[0.2em] hover:text-primary transition-colors font-semibold" href="#">The App</a>
+<a class="text-xs uppercase tracking-[0.2em] hover:text-primary transition-colors font-semibold" href="#">Features</a>
+<a class="text-xs uppercase tracking-[0.2em] hover:text-primary transition-colors font-semibold" href="#">Membership</a>
+<button class="border border-white/20 hover:border-primary px-8 py-3 text-[10px] uppercase tracking-[0.2em] font-bold transition-all hover:bg-white hover:text-black">
+                Get Access
+            </button>
+</div>
+</div>
+</nav>
+<header class="relative pt-40 pb-20 overflow-hidden">
+<div class="max-w-[1400px] mx-auto px-8">
+<div class="editorial-grid">
+<div class="col-span-12 lg:col-span-7 z-10">
+<div class="flex items-center gap-3 mb-12">
+<span class="w-12 h-[1px] bg-primary"></span>
+<span class="text-[10px] uppercase tracking-[0.5em] text-primary font-bold">The Social Sport Evolution</span>
+</div>
+<h1 class="text-7xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] tracking-tight mb-12">
+                    Your Golf Trip. <br/>
+<span class="italic font-normal">Reimagined.</span>
+</h1>
+<div class="max-w-md">
+<p class="text-lg md:text-xl text-slate-400 font-light leading-relaxed mb-12 text-indent">
+                        We didn't just build a scorecard. We designed a digital companion for the modern golf collective. From live broadcasts to automated skins, PMV bridges the gap between the fairway and the social feed.
+                    </p>
+<div class="flex flex-wrap gap-8 items-center">
+<a class="group flex items-center gap-4" href="#">
+<span class="size-14 rounded-full border border-primary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all">
+<span class="material-symbols-outlined">download</span>
+</span>
+<span class="text-[11px] uppercase tracking-[0.3em] font-bold text-white">Download the Edition</span>
+</a>
+<a class="text-[11px] uppercase tracking-[0.3em] font-bold text-slate-500 hover:text-white transition-colors" href="#">Join the Beta</a>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-5 relative mt-12 lg:mt-0">
+<div class="relative aspect-[4/5] overflow-hidden rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
+<img alt="Golf Trip Lifestyle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFTQ5fg_W-lvJVfumFfmYcgfr4cVjPXZRT-bat-DtBo4khUFrlAFR2RBkYdgd0lexjGES9pra041k4Wm3UPeXTmSJIVDTWbjNUsSlepX3N3vhXGKEXTNjttrUCz3MKgbR_Ubh_cCrkJN1xMfu3NVY_E3uEiFLjwdA716E4bz7ZtTbAS8EaVqvXZlylLQo3T3gmCkCdSjaqQlxrDlEI44ymQoUocUG_6cUyZvqrZDUgqJzAvvKEJl20As4xeBucotq5Ak8iIuBiTMda"/>
+<div class="image-overlay absolute inset-0"></div>
+</div>
+<div class="absolute -bottom-10 -left-10 md:-left-20 bg-primary p-8 md:p-12 text-black max-w-xs shadow-2xl">
+<p class="font-serif italic text-2xl leading-tight mb-4">"The only app that captures the spirit of the 19th hole."</p>
+<span class="text-[10px] uppercase tracking-widest font-black">— Golf Digest Digest</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<section class="py-24 border-y border-white/5 bg-accent-dark/30">
+<div class="max-w-[1400px] mx-auto px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="flex flex-col border-l border-white/10 pl-6">
+<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">Network Reach</span>
+<span class="text-4xl font-serif text-white">500+ <span class="text-sm italic text-primary">Rounds</span></span>
+</div>
+<div class="flex flex-col border-l border-white/10 pl-6">
+<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">Group Dynamic</span>
+<span class="text-4xl font-serif text-white">50+ <span class="text-sm italic text-primary">Crews</span></span>
+</div>
+<div class="flex flex-col border-l border-white/10 pl-6">
+<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">User Index</span>
+<span class="text-4xl font-serif text-white">4.9 <span class="text-sm italic text-primary">Rating</span></span>
+</div>
+<div class="flex flex-col border-l border-white/10 pl-6">
+<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">Nashville HQ</span>
+<span class="text-4xl font-serif text-white">TN <span class="text-sm italic text-primary">Studio</span></span>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 bg-background-dark">
+<div class="max-w-[1400px] mx-auto px-8">
+<div class="editorial-grid mb-24">
+<div class="col-span-12 lg:col-span-5">
+<h2 class="text-5xl md:text-6xl font-serif text-white leading-tight mb-8">Features for the <br/><span class="italic">Modern Putter.</span></h2>
+</div>
+<div class="col-span-12 lg:col-span-6 lg:col-start-7 self-end">
+<p class="text-slate-400 font-light leading-relaxed max-w-md">Every detail is meticulously crafted to serve your group's competitive and social needs, designed with a focus on high-fidelity performance and elegance.</p>
+</div>
+</div>
+<div class="editorial-grid gap-y-24">
+<div class="col-span-12 lg:col-span-8 group">
+<div class="relative overflow-hidden aspect-video mb-8 bg-card-dark rounded-sm">
+<img alt="Live Scoring" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMxEsRsS2kQHPuvgAny4XMU2Hekr6SrkqLAIw3qFOeGjwOvjxoHrgc_2JoxGZpeWOwgcKIeuDxXjLAceSe_CNNEtlLgC4o187xNFSJ2sFSXFG7HkyySh0pbJu5e0WA2eMF7U7JrTo1JwXLibM8cRQT_VX8NLLIBrCETh7IUgnPlrYtgoAbFVy_m2YJ6kSmTJu7AX06uK3S-tZQqSlTWJq1P3wT4DIQ0cARLifm3lq_Z_YAo5qdmNrV3DI9tTiakjSnv9F5PlkYAWlm"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+<div class="absolute bottom-8 left-8">
+<span class="text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Core Engine</span>
+<h3 class="text-4xl text-white font-serif italic">Live Scoring &amp; Analytics</h3>
+</div>
+</div>
+<p class="text-slate-400 font-light max-w-lg leading-relaxed">
+                    Real-time scorecard with leaderboard, gross/net tracking, and automatic handicap adjustments for every player in your tournament group.
+                </p>
+</div>
+<div class="col-span-12 lg:col-span-4 flex flex-col justify-center">
+<div class="border-t border-white/10 pt-12 mb-12">
+<span class="text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Streaming</span>
+<h3 class="text-3xl text-white font-serif mb-4 italic">Broadcast Round</h3>
+<p class="text-slate-500 font-light text-sm leading-relaxed">Broadcast highlights to the group instantly. The spiritual successor to Marco Polo, designed exclusively for the fairway.</p>
+</div>
+<div class="border-t border-white/10 pt-12">
+<span class="text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Wagering</span>
+<h3 class="text-3xl text-white font-serif mb-4 italic">Skins &amp; Bets</h3>
+<p class="text-slate-500 font-light text-sm leading-relaxed">Nassau, skins, and 1v1 wagers. Our integrated engine handles the mathematics and automatic group settlements.</p>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 border-l border-white/10 pl-8">
+<div class="mb-12">
+<h3 class="text-2xl text-white font-serif mb-4">Group Feed</h3>
+<p class="text-slate-400 font-light text-sm leading-relaxed">A dedicated hub for photos, voice notes, and high-stakes trash talk with read receipts.</p>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 border-l border-white/10 pl-8">
+<div class="mb-12">
+<h3 class="text-2xl text-white font-serif mb-4">Trip Planning</h3>
+<p class="text-slate-400 font-light text-sm leading-relaxed">Itineraries, polls for tee times, and a live GPS map showing exactly where the crew is.</p>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 border-l border-white/10 pl-8">
+<div class="mb-12">
+<h3 class="text-2xl text-white font-serif mb-4">Apple Watch</h3>
+<p class="text-slate-400 font-light text-sm leading-relaxed">Yardages, score entry, and live leaderboards directly from the wrist of the modern player.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 bg-accent-dark relative">
+<div class="max-w-[1400px] mx-auto px-8 editorial-grid">
+<div class="col-span-12 lg:col-span-3 hidden lg:block">
+<div class="vertical-text text-slate-700 font-serif text-9xl leading-none select-none opacity-20">
+                VOICES
+            </div>
+</div>
+<div class="col-span-12 lg:col-span-9">
+<div class="max-w-3xl">
+<span class="material-symbols-outlined text-primary text-5xl mb-12">format_quote</span>
+<p class="text-4xl md:text-6xl font-serif text-white leading-[1.15] italic mb-12">
+                    "Finally an app that does what our group text can't. It turned our annual weekend into a professional-tier tour experience."
+                </p>
+<div class="flex items-center gap-6">
+<div class="size-20 rounded-full bg-slate-800 grayscale overflow-hidden ring-1 ring-primary/30 ring-offset-4 ring-offset-accent-dark">
+<img alt="Michael V." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMxEsRsS2kQHPuvgAny4XMU2Hekr6SrkqLAIw3qFOeGjwOvjxoHrgc_2JoxGZpeWOwgcKIeuDxXjLAceSe_CNNEtlLgC4o187xNFSJ2sFSXFG7HkyySh0pbJu5e0WA2eMF7U7JrTo1JwXLibM8cRQT_VX8NLLIBrCETh7IUgnPlrYtgoAbFVy_m2YJ6kSmTJu7AX06uK3S-tZQqSlTWJq1P3wT4DIQ0cARLifm3lq_Z_YAo5qdmNrV3DI9tTiakjSnv9F5PlkYAWlm"/>
+</div>
+<div>
+<span class="block text-xl text-white font-serif">Michael V.</span>
+<span class="block text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Verified Beta Tester</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="pt-32 pb-16 bg-background-dark border-t border-white/5">
+<div class="max-w-[1400px] mx-auto px-8">
+<div class="editorial-grid mb-24">
+<div class="col-span-12 lg:col-span-4">
+<div class="flex items-center gap-3 mb-8">
+<span class="text-4xl font-serif italic tracking-tighter text-white">PMV.</span>
+</div>
+<p class="text-slate-500 font-light text-sm max-w-xs leading-relaxed">
+                    The definitive social platform for group golf travel. Organize your trip, settle your bets, and broadcast the glory.
+                </p>
+</div>
+<div class="col-span-6 lg:col-span-2">
+<h4 class="text-[10px] uppercase tracking-[0.4em] font-bold text-white mb-8">Directory</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="#">Features</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Beta Access</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Pricing</a></li>
+</ul>
+</div>
+<div class="col-span-6 lg:col-span-2">
+<h4 class="text-[10px] uppercase tracking-[0.4em] font-bold text-white mb-8">Legal</h4>
+<ul class="space-y-4 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="/privacy.html">Privacy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms</a></li>
+</ul>
+</div>
+<div class="col-span-12 lg:col-span-4 mt-12 lg:mt-0">
+<h4 class="text-[10px] uppercase tracking-[0.4em] font-bold text-white mb-8">Newsletter</h4>
+<div class="flex border-b border-white/20 pb-2">
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-700" placeholder="Email Address" type="email"/>
+<button class="text-[10px] uppercase tracking-widest font-bold text-primary">Subscribe</button>
+</div>
+</div>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/5 gap-8">
+<p class="text-[10px] uppercase tracking-[0.3em] text-slate-600">
+                © 2026 PMV GOLF — MADE FOR THE PURISTS IN NASHVILLE, TN.
+            </p>
+<div class="flex items-center gap-12">
+<img alt="App Store" class="h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1icOrNhYZglx-WIY3tHzE10eWEcVz6myBjHXrxejOkGlPbO5knwBDu9IbB5IrgBcNN6M-Ai3JcuFCSCVU9aeUllOk7WSbI_xeqyHZjZWb2qjPqB7DQ3CVHL4nUiOV0ZRP7-04Y9l3fJffyMRmH4JS7ILCBV3nbzFbQrAyRiepg9vafMihelCEE8RO4Rz9yR2GarQi8jJ3LhcejRyPE99g4MPc-GFRk9Es8ptC9erLRNClt6DZAPWqf3M6KXg6Ug3xL2zJnM5EgS7d"/>
+</div>
+</div>
+</div>
+</footer>
+
+</body></html>

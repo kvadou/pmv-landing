@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00ff66",
+                        "background-light": "#f5f8f7",
+                        "background-dark": "#0A0A0A",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "sans": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .prose-custom p {
+            margin-bottom: 1.25rem;
+            color: #94a3b8; /* slate-400 */
+            line-height: 1.75;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
+<!-- Header / TopNavBar -->
+<nav class="sticky top-0 z-50 w-full border-b border-white/10 bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-1.5 rounded-lg">
+<svg class="size-6 text-background-dark" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-xl font-black tracking-tighter text-white">PMV</span>
+</div>
+<div class="flex items-center gap-6">
+<a class="hidden sm:block text-sm font-medium text-slate-400 hover:text-primary transition-colors" href="#">Home</a>
+<a class="flex items-center gap-2 px-5 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-sm font-semibold text-white transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Back to Home
+                </a>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow max-w-4xl mx-auto w-full px-6 py-16 md:py-24">
+<header class="mb-16">
+<h1 class="text-5xl md:text-6xl font-black tracking-tight text-white mb-4">Privacy Policy</h1>
+<div class="flex items-center gap-2 text-primary font-medium">
+<span class="material-symbols-outlined text-[20px]">calendar_today</span>
+<span>Last updated: March 19, 2026</span>
+</div>
+</header>
+<section class="space-y-4">
+<!-- Section 1 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300" open="">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">01</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Information We Collect</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>We collect information to provide a better experience for all our golfers. This includes:</p>
+<ul class="list-disc list-inside space-y-2 text-slate-400 ml-4">
+<li><strong class="text-slate-200">Account info:</strong> Name, email, and profile photo.</li>
+<li><strong class="text-slate-200">Golf data:</strong> Scores, rounds, handicap, and courses played.</li>
+<li><strong class="text-slate-200">Location data:</strong> Real-time GPS for our rangefinder and live group maps.</li>
+<li><strong class="text-slate-200">Media:</strong> Camera and microphone access for streaming and posts.</li>
+<li><strong class="text-slate-200">Technical data:</strong> Device info and push notification tokens.</li>
+</ul>
+</div>
+</details>
+<!-- Section 2 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">02</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">How We Use Your Information</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>Your data powers the Poor Man's Vegas experience. We use it for:</p>
+<ul class="list-disc list-inside space-y-2 text-slate-400 ml-4">
+<li>Core app functionality including live scoring, chat, and streaming.</li>
+<li>Profile visibility to other members within your joined groups.</li>
+<li>Opt-in location sharing on the interactive group map.</li>
+<li>Sending essential push notifications about your rounds.</li>
+<li>General app improvement and bug fixes.</li>
+</ul>
+</div>
+</details>
+<!-- Section 3 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">03</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Information Sharing</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<div class="bg-primary/10 border border-primary/20 p-4 rounded-xl mb-6">
+<p class="text-primary font-bold mb-0">Crucial: We do NOT sell your data to third parties.</p>
+</div>
+<p>Information is only shared with:</p>
+<ul class="list-disc list-inside space-y-2 text-slate-400 ml-4">
+<li><strong class="text-slate-200">Group Members:</strong> Other golfers in your active groups.</li>
+<li><strong class="text-slate-200">Supabase:</strong> Our secure database and hosting provider.</li>
+<li><strong class="text-slate-200">LiveKit:</strong> For processing live streaming data.</li>
+<li><strong class="text-slate-200">Apple:</strong> For App Store services, push notifications, and crash reporting.</li>
+</ul>
+</div>
+</details>
+<!-- Section 4 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">04</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Data Retention</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>We retain your data as long as your account is active. Upon a deletion request, we will remove your personal identifiers from our systems. Some golf data may be anonymized and kept for historical course statistics.</p>
+</div>
+</details>
+<!-- Section 5 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">05</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Your Rights</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>You have full control over your information:</p>
+<ul class="list-disc list-inside space-y-2 text-slate-400 ml-4">
+<li>Access, correct, or delete your data at any time.</li>
+<li>Opt-out of real-time location sharing in settings.</li>
+<li>Disable push notifications via iOS system settings.</li>
+<li>Request a full export of your personal golf data.</li>
+</ul>
+</div>
+</details>
+<!-- Section 6 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">06</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Children's Privacy</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>PMV is not intended for users under the age of 13. We do not knowingly collect personal information from children. If we discover a user is under 13, we will delete their information immediately.</p>
+</div>
+</details>
+<!-- Section 7 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">07</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Security</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>We take security seriously. All data is encrypted in transit using TLS and at rest. We utilize Supabase Auth with secure tokens to ensure only you can access your account.</p>
+</div>
+</details>
+<!-- Section 8 -->
+<details class="group bg-white/5 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300">
+<summary class="flex items-center justify-between p-6 cursor-pointer list-none hover:bg-white/[0.07]">
+<div class="flex items-center gap-4">
+<span class="text-primary font-bold text-lg opacity-50">08</span>
+<h2 class="text-lg font-bold text-white uppercase tracking-wider">Contact Us</h2>
+</div>
+<span class="material-symbols-outlined text-slate-500 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-8 prose-custom">
+<p>If you have questions about this policy, please reach out to us:</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-4">
+<a class="flex items-center gap-3 bg-white/10 px-4 py-3 rounded-xl hover:bg-white/20 transition-colors" href="mailto:support@pmvgolf.com">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span class="text-white font-medium">support@pmvgolf.com</span>
+</a>
+<div class="flex items-center gap-3 bg-white/10 px-4 py-3 rounded-xl">
+<span class="material-symbols-outlined text-primary">feedback</span>
+<span class="text-white font-medium">In-app feedback</span>
+</div>
+</div>
+</div>
+</details>
+</section>
+<!-- Legal Disclosure Footer Note -->
+<div class="mt-20 p-8 border border-white/10 bg-gradient-to-br from-white/5 to-transparent rounded-3xl">
+<h3 class="text-xl font-bold text-white mb-4">Legal Disclosure</h3>
+<p class="text-slate-400 leading-relaxed">
+                By using PMV, you agree to the collection and use of information in accordance with this policy. We prioritize your privacy and aim for complete transparency in how your golf data is handled. This document is subject to change, and we will notify you of any major updates.
+            </p>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-black/40 border-t border-white/5 py-12">
+<div class="max-w-5xl mx-auto px-6">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+<div class="space-y-4">
+<div class="flex items-center gap-2">
+<div class="bg-primary/20 p-1 rounded">
+<svg class="size-4 text-primary" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M4 4H17.3334V17.3334H30.6666V30.6666H44V44H4V4Z" fill="currentColor"></path>
+</svg>
+</div>
+<span class="text-lg font-black tracking-tighter text-white">PMV</span>
+</div>
+<p class="text-slate-500 text-sm">Made by golfers, for golfers.<br/>Nashville, TN.</p>
+</div>
+<div class="flex flex-wrap gap-x-12 gap-y-4">
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-500">Legal</span>
+<a class="text-sm text-slate-300 hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="text-sm text-slate-300 hover:text-primary transition-colors" href="#">Terms of Service</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="text-xs font-bold uppercase tracking-widest text-slate-500">Connect</span>
+<a class="text-sm text-slate-300 hover:text-primary transition-colors" href="#">Contact</a>
+<a class="text-sm text-slate-300 hover:text-primary transition-colors" href="#">Instagram</a>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-white/5 text-center">
+<p class="text-xs text-slate-600">© 2026 PMV Golf. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body></html>
