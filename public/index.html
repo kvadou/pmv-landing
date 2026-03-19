@@ -1,265 +1,991 @@
 <!DOCTYPE html>
-<html class="dark" lang="en"><head>
+<html lang="en">
+<head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>PMV — The Modern Golf Quarterly</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#00ff66",
-                        "background-dark": "#050505",
-                        "card-dark": "#0D0D0D",
-                        "accent-dark": "#141414",
-                    },
-                    fontFamily: {
-                        "serif": ["'Playfair Display'", "serif"],
-                        "sans": ["'Inter'", "sans-serif"]
-                    },
-                },
-            },
-        }
-    </script>
-<style type="text/tailwindcss">
-        @layer base {
-            body {
-                @apply bg-background-dark text-slate-200 font-sans;
-            }
-            h1, h2, h3, h4 {
-                @apply font-serif;
-            }
-        }
-        .editorial-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 1.5rem;
-        }
-        .vertical-text {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-        }
-        .text-indent {
-            text-indent: 4rem;
-        }
-        .gold-border {
-            border-color: rgba(0, 255, 102, 0.3);
-        }
-        .image-overlay {
-            background: linear-gradient(to bottom, transparent 0%, rgba(5,5,5,0.8) 100%);
-        }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PMV — Your Golf Trip. Upgraded.</title>
+<meta name="description" content="PMV is the social golf trip app. Live scoring, group chat, video broadcasting, skins and bets — one app for everything your golf crew needs."/>
+<meta property="og:title" content="PMV — Your Golf Trip. Upgraded."/>
+<meta property="og:description" content="Live scoring. Group chat. Video broadcasting. Skins and bets. One app for everything your golf crew needs."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://pmvgolf.com"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green: #00ff66;
+    --green-dim: rgba(0,255,102,0.15);
+    --green-glow: rgba(0,255,102,0.4);
+    --bg: #050505;
+    --bg-raised: #0c0c0c;
+    --bg-card: #111111;
+    --text: #e2e8f0;
+    --text-dim: #64748b;
+    --text-muted: #475569;
+    --border: rgba(255,255,255,0.06);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+
+  /* Scroll reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* Typography */
+  h1, h2, h3, h4 { font-family: var(--serif); }
+
+  a { color: inherit; text-decoration: none; }
+
+  .label {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--green);
+  }
+
+  .container { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+
+  /* ═══ NAV ═══ */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(24px) saturate(1.2);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+  nav.scrolled { background: rgba(5,5,5,0.97); }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 500;
+    color: white;
+    letter-spacing: -0.03em;
+  }
+  .nav-logo span { color: var(--green); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    transition: color 0.25s;
+    position: relative;
+  }
+  .nav-links a:hover, .nav-links a.active { color: white; }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--green);
+    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 28px;
+    border: 1px solid rgba(255,255,255,0.15);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: white;
+    transition: all 0.3s;
+    cursor: pointer;
+    background: none;
+  }
+  .nav-cta:hover {
+    background: var(--green);
+    border-color: var(--green);
+    color: black;
+  }
+
+  /* Mobile hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: white;
+    transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(5,5,5,0.98);
+    backdrop-filter: blur(24px);
+    z-index: 99;
+    padding: 48px;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-style: italic;
+    color: var(--text-dim);
+    transition: color 0.2s;
+  }
+  .mobile-menu a:hover { color: white; }
+
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    padding: clamp(140px, 18vw, 200px) 0 clamp(60px, 8vw, 100px);
+    position: relative;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 1024px) {
+    .hero-grid { grid-template-columns: 1fr; }
+  }
+
+  .hero h1 {
+    font-size: clamp(52px, 8vw, 112px);
+    font-weight: 400;
+    line-height: 0.88;
+    letter-spacing: -0.03em;
+    color: white;
+    margin-bottom: 40px;
+  }
+  .hero h1 em {
+    font-weight: 300;
+    color: var(--text-dim);
+  }
+
+  .hero-body {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--text-dim);
+    font-weight: 300;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .hero-ctas { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 32px;
+    background: var(--green);
+    color: black;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,255,102,0.2);
+  }
+  .btn-primary svg { width: 18px; height: 18px; }
+
+  .btn-ghost {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    transition: color 0.25s;
+    padding: 16px 0;
+  }
+  .btn-ghost:hover { color: white; }
+
+  /* Hero image */
+  .hero-visual {
+    position: relative;
+  }
+  .hero-img-wrap {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    filter: grayscale(100%);
+    transition: filter 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-img-wrap:hover { filter: grayscale(0%); }
+  .hero-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .hero-img-wrap:hover img { transform: scale(1.04); }
+  .hero-img-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, var(--bg) 100%);
+  }
+
+  .hero-pullquote {
+    position: absolute;
+    bottom: -24px;
+    left: -32px;
+    background: var(--green);
+    color: black;
+    padding: clamp(20px, 3vw, 40px);
+    max-width: 280px;
+    z-index: 2;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+  }
+  .hero-pullquote p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(16px, 2vw, 22px);
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+  .hero-pullquote cite {
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-pullquote { left: 0; bottom: -16px; }
+  }
+
+  /* ═══ STATS BAR ═══ */
+  .stats {
+    padding: 64px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-raised);
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 640px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .stat {
+    border-left: 1px solid rgba(255,255,255,0.08);
+    padding-left: 24px;
+  }
+  .stat-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .stat-value {
+    font-family: var(--serif);
+    font-size: clamp(28px, 3vw, 40px);
+    color: white;
+    line-height: 1;
+  }
+  .stat-value span {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--green);
+    margin-left: 4px;
+  }
+
+  /* ═══ FEATURES ═══ */
+  .features { padding: clamp(80px, 10vw, 160px) 0; }
+
+  .features-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: clamp(48px, 6vw, 96px);
+    align-items: end;
+  }
+  @media (max-width: 768px) {
+    .features-header { grid-template-columns: 1fr; }
+  }
+  .features-header h2 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: white;
+  }
+  .features-header h2 em { font-weight: 300; color: var(--text-dim); }
+  .features-header p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-dim);
+    font-weight: 300;
+    max-width: 400px;
+  }
+
+  /* Feature hero card */
+  .feature-hero {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  @media (max-width: 768px) {
+    .feature-hero { grid-template-columns: 1fr; }
+  }
+
+  .feature-img {
+    position: relative;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: var(--bg-card);
+  }
+  .feature-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    transition: opacity 0.6s, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .feature-img:hover img { opacity: 0.7; transform: scale(1.03); }
+  .feature-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 60%);
+  }
+  .feature-img-text {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+  }
+  .feature-img-text h3 {
+    font-size: clamp(24px, 3vw, 40px);
+    color: white;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .feature-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+  }
+  .feature-item {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 24px;
+  }
+  .feature-item h3 {
+    font-size: 24px;
+    color: white;
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .feature-item p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* Feature small grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.04);
+  }
+  @media (max-width: 768px) {
+    .feature-grid { grid-template-columns: 1fr; }
+  }
+  .feature-cell {
+    background: var(--bg);
+    padding: clamp(24px, 3vw, 48px);
+    transition: background 0.3s;
+  }
+  .feature-cell:hover { background: var(--bg-raised); }
+  .feature-cell h3 {
+    font-size: 22px;
+    color: white;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .feature-cell p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ═══ TESTIMONIAL ═══ */
+  .testimonial {
+    padding: clamp(80px, 10vw, 160px) 0;
+    background: var(--bg-raised);
+    position: relative;
+    overflow: hidden;
+  }
+  .testimonial-bg-text {
+    position: absolute;
+    top: 50%;
+    left: -20px;
+    transform: translateY(-50%);
+    font-family: var(--serif);
+    font-size: clamp(120px, 18vw, 280px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.015);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .testimonial-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin-left: auto;
+  }
+  .testimonial blockquote {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4.5vw, 56px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.2;
+    color: white;
+    margin-bottom: 40px;
+  }
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .testimonial-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    overflow: hidden;
+    border: 2px solid rgba(0,255,102,0.2);
+  }
+  .testimonial-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%);
+  }
+  .testimonial-name {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: white;
+  }
+
+  /* ═══ CTA SECTION ═══ */
+  .cta-section {
+    padding: clamp(80px, 10vw, 140px) 0;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .cta-section h2 {
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 400;
+    font-style: italic;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .cta-section p {
+    font-size: 16px;
+    color: var(--text-dim);
+    font-weight: 300;
+    margin-bottom: 40px;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+  }
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    padding: clamp(48px, 6vw, 96px) 0 40px;
+    border-top: 1px solid var(--border);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    gap: 48px;
+    margin-bottom: 64px;
+  }
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+  .footer-brand p {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 260px;
+    margin-top: 16px;
+  }
+  .footer-col h4 {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    font-size: 14px;
+    color: var(--text-muted);
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--green); }
+
+  /* Newsletter form */
+  .newsletter-form {
+    display: flex;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding-bottom: 4px;
+  }
+  .newsletter-form input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 8px 0;
+  }
+  .newsletter-form input::placeholder { color: var(--text-muted); }
+  .newsletter-form button {
+    background: none;
+    border: none;
+    color: var(--green);
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  .newsletter-form button:hover { color: white; }
+  .newsletter-success {
+    display: none;
+    color: var(--green);
+    font-size: 13px;
+    padding: 8px 0;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .footer-bottom p {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* Back to top */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    background: var(--green);
+    color: black;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .back-to-top:hover { background: white; }
+</style>
 </head>
-<body class="antialiased overflow-x-hidden">
-<nav class="fixed top-0 z-50 w-full border-b border-white/5 bg-background-dark/90 backdrop-blur-xl">
-<div class="max-w-[1400px] mx-auto px-8 h-24 flex items-center justify-between">
-<div class="flex items-center gap-4">
-<span class="text-3xl font-serif italic tracking-tighter text-white">PMV.</span>
-<div class="h-4 w-[1px] bg-white/20"></div>
-<span class="text-[10px] uppercase tracking-[0.3em] font-medium text-slate-500">Vol. 01 — Issue 04</span>
-</div>
-<div class="hidden md:flex items-center gap-12">
-<a class="text-xs uppercase tracking-[0.2em] hover:text-primary transition-colors font-semibold" href="#">The App</a>
-<a class="text-xs uppercase tracking-[0.2em] hover:text-primary transition-colors font-semibold" href="#">Features</a>
-<a class="text-xs uppercase tracking-[0.2em] hover:text-primary transition-colors font-semibold" href="#">Membership</a>
-<button class="border border-white/20 hover:border-primary px-8 py-3 text-[10px] uppercase tracking-[0.2em] font-bold transition-all hover:bg-white hover:text-black">
-                Get Access
-            </button>
-</div>
-</div>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container nav-inner">
+    <a href="#hero" class="nav-logo">PMV<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#voices">Voices</a></li>
+      <li><a href="/privacy.html">Privacy</a></li>
+      <li><a href="#get-access" class="nav-cta">Get Access</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
-<header class="relative pt-40 pb-20 overflow-hidden">
-<div class="max-w-[1400px] mx-auto px-8">
-<div class="editorial-grid">
-<div class="col-span-12 lg:col-span-7 z-10">
-<div class="flex items-center gap-3 mb-12">
-<span class="w-12 h-[1px] bg-primary"></span>
-<span class="text-[10px] uppercase tracking-[0.5em] text-primary font-bold">The Social Sport Evolution</span>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" onclick="closeMobile()">Home</a>
+  <a href="#features" onclick="closeMobile()">Features</a>
+  <a href="#voices" onclick="closeMobile()">Voices</a>
+  <a href="/privacy.html">Privacy</a>
+  <a href="mailto:beta@pmvgolf.com" style="color: var(--green);">Get Beta Access</a>
 </div>
-<h1 class="text-7xl md:text-8xl lg:text-9xl font-black text-white leading-[0.85] tracking-tight mb-12">
-                    Your Golf Trip. <br/>
-<span class="italic font-normal">Reimagined.</span>
-</h1>
-<div class="max-w-md">
-<p class="text-lg md:text-xl text-slate-400 font-light leading-relaxed mb-12 text-indent">
-                        We didn't just build a scorecard. We designed a digital companion for the modern golf collective. From live broadcasts to automated skins, PMV bridges the gap between the fairway and the social feed.
-                    </p>
-<div class="flex flex-wrap gap-8 items-center">
-<a class="group flex items-center gap-4" href="#">
-<span class="size-14 rounded-full border border-primary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-black transition-all">
-<span class="material-symbols-outlined">download</span>
-</span>
-<span class="text-[11px] uppercase tracking-[0.3em] font-bold text-white">Download the Edition</span>
-</a>
-<a class="text-[11px] uppercase tracking-[0.3em] font-bold text-slate-500 hover:text-white transition-colors" href="#">Join the Beta</a>
-</div>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-5 relative mt-12 lg:mt-0">
-<div class="relative aspect-[4/5] overflow-hidden rounded-sm grayscale hover:grayscale-0 transition-all duration-700">
-<img alt="Golf Trip Lifestyle" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFTQ5fg_W-lvJVfumFfmYcgfr4cVjPXZRT-bat-DtBo4khUFrlAFR2RBkYdgd0lexjGES9pra041k4Wm3UPeXTmSJIVDTWbjNUsSlepX3N3vhXGKEXTNjttrUCz3MKgbR_Ubh_cCrkJN1xMfu3NVY_E3uEiFLjwdA716E4bz7ZtTbAS8EaVqvXZlylLQo3T3gmCkCdSjaqQlxrDlEI44ymQoUocUG_6cUyZvqrZDUgqJzAvvKEJl20As4xeBucotq5Ak8iIuBiTMda"/>
-<div class="image-overlay absolute inset-0"></div>
-</div>
-<div class="absolute -bottom-10 -left-10 md:-left-20 bg-primary p-8 md:p-12 text-black max-w-xs shadow-2xl">
-<p class="font-serif italic text-2xl leading-tight mb-4">"The only app that captures the spirit of the 19th hole."</p>
-<span class="text-[10px] uppercase tracking-widest font-black">— Golf Digest Digest</span>
-</div>
-</div>
-</div>
-</div>
-</header>
-<section class="py-24 border-y border-white/5 bg-accent-dark/30">
-<div class="max-w-[1400px] mx-auto px-8">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-<div class="flex flex-col border-l border-white/10 pl-6">
-<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">Network Reach</span>
-<span class="text-4xl font-serif text-white">500+ <span class="text-sm italic text-primary">Rounds</span></span>
-</div>
-<div class="flex flex-col border-l border-white/10 pl-6">
-<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">Group Dynamic</span>
-<span class="text-4xl font-serif text-white">50+ <span class="text-sm italic text-primary">Crews</span></span>
-</div>
-<div class="flex flex-col border-l border-white/10 pl-6">
-<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">User Index</span>
-<span class="text-4xl font-serif text-white">4.9 <span class="text-sm italic text-primary">Rating</span></span>
-</div>
-<div class="flex flex-col border-l border-white/10 pl-6">
-<span class="text-xs uppercase tracking-[0.3em] text-slate-500 mb-2">Nashville HQ</span>
-<span class="text-4xl font-serif text-white">TN <span class="text-sm italic text-primary">Studio</span></span>
-</div>
-</div>
-</div>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="label reveal" style="margin-bottom: 40px;">
+          <span style="display:inline-block; width:40px; height:1px; background:var(--green); vertical-align:middle; margin-right:12px;"></span>
+          The Social Sport Evolution
+        </div>
+        <h1 class="reveal reveal-delay-1">
+          Your Golf<br/>Trip. <em>Reimagined.</em>
+        </h1>
+        <p class="hero-body reveal reveal-delay-2">
+          We didn't just build a scorecard. We designed a digital companion for the modern golf collective. From live broadcasts to automated skins, PMV bridges the gap between the fairway and the social feed.
+        </p>
+        <div class="hero-ctas reveal reveal-delay-3">
+          <a href="#get-access" class="btn-primary">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on App Store
+          </a>
+          <a href="mailto:beta@pmvgolf.com" class="btn-ghost">Join the Beta &rarr;</a>
+        </div>
+      </div>
+      <div class="hero-visual reveal reveal-delay-2">
+        <div class="hero-img-wrap">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFTQ5fg_W-lvJVfumFfmYcgfr4cVjPXZRT-bat-DtBo4khUFrlAFR2RBkYdgd0lexjGES9pra041k4Wm3UPeXTmSJIVDTWbjNUsSlepX3N3vhXGKEXTNjttrUCz3MKgbR_Ubh_cCrkJN1xMfu3NVY_E3uEiFLjwdA716E4bz7ZtTbAS8EaVqvXZlylLQo3T3gmCkCdSjaqQlxrDlEI44ymQoUocUG_6cUyZvqrZDUgqJzAvvKEJl20As4xeBucotq5Ak8iIuBiTMda" alt="Golf trip lifestyle" loading="eager"/>
+          <div class="hero-img-gradient"></div>
+        </div>
+        <div class="hero-pullquote">
+          <p>"The only app that captures the spirit of the 19th hole."</p>
+          <cite>Beta Tester Review</cite>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-<section class="py-32 bg-background-dark">
-<div class="max-w-[1400px] mx-auto px-8">
-<div class="editorial-grid mb-24">
-<div class="col-span-12 lg:col-span-5">
-<h2 class="text-5xl md:text-6xl font-serif text-white leading-tight mb-8">Features for the <br/><span class="italic">Modern Putter.</span></h2>
-</div>
-<div class="col-span-12 lg:col-span-6 lg:col-start-7 self-end">
-<p class="text-slate-400 font-light leading-relaxed max-w-md">Every detail is meticulously crafted to serve your group's competitive and social needs, designed with a focus on high-fidelity performance and elegance.</p>
-</div>
-</div>
-<div class="editorial-grid gap-y-24">
-<div class="col-span-12 lg:col-span-8 group">
-<div class="relative overflow-hidden aspect-video mb-8 bg-card-dark rounded-sm">
-<img alt="Live Scoring" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMxEsRsS2kQHPuvgAny4XMU2Hekr6SrkqLAIw3qFOeGjwOvjxoHrgc_2JoxGZpeWOwgcKIeuDxXjLAceSe_CNNEtlLgC4o187xNFSJ2sFSXFG7HkyySh0pbJu5e0WA2eMF7U7JrTo1JwXLibM8cRQT_VX8NLLIBrCETh7IUgnPlrYtgoAbFVy_m2YJ6kSmTJu7AX06uK3S-tZQqSlTWJq1P3wT4DIQ0cARLifm3lq_Z_YAo5qdmNrV3DI9tTiakjSnv9F5PlkYAWlm"/>
-<div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
-<div class="absolute bottom-8 left-8">
-<span class="text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Core Engine</span>
-<h3 class="text-4xl text-white font-serif italic">Live Scoring &amp; Analytics</h3>
-</div>
-</div>
-<p class="text-slate-400 font-light max-w-lg leading-relaxed">
-                    Real-time scorecard with leaderboard, gross/net tracking, and automatic handicap adjustments for every player in your tournament group.
-                </p>
-</div>
-<div class="col-span-12 lg:col-span-4 flex flex-col justify-center">
-<div class="border-t border-white/10 pt-12 mb-12">
-<span class="text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Streaming</span>
-<h3 class="text-3xl text-white font-serif mb-4 italic">Broadcast Round</h3>
-<p class="text-slate-500 font-light text-sm leading-relaxed">Broadcast highlights to the group instantly. The spiritual successor to Marco Polo, designed exclusively for the fairway.</p>
-</div>
-<div class="border-t border-white/10 pt-12">
-<span class="text-primary text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Wagering</span>
-<h3 class="text-3xl text-white font-serif mb-4 italic">Skins &amp; Bets</h3>
-<p class="text-slate-500 font-light text-sm leading-relaxed">Nassau, skins, and 1v1 wagers. Our integrated engine handles the mathematics and automatic group settlements.</p>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-4 border-l border-white/10 pl-8">
-<div class="mb-12">
-<h3 class="text-2xl text-white font-serif mb-4">Group Feed</h3>
-<p class="text-slate-400 font-light text-sm leading-relaxed">A dedicated hub for photos, voice notes, and high-stakes trash talk with read receipts.</p>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-4 border-l border-white/10 pl-8">
-<div class="mb-12">
-<h3 class="text-2xl text-white font-serif mb-4">Trip Planning</h3>
-<p class="text-slate-400 font-light text-sm leading-relaxed">Itineraries, polls for tee times, and a live GPS map showing exactly where the crew is.</p>
-</div>
-</div>
-<div class="col-span-12 lg:col-span-4 border-l border-white/10 pl-8">
-<div class="mb-12">
-<h3 class="text-2xl text-white font-serif mb-4">Apple Watch</h3>
-<p class="text-slate-400 font-light text-sm leading-relaxed">Yardages, score entry, and live leaderboards directly from the wrist of the modern player.</p>
-</div>
-</div>
-</div>
-</div>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat reveal">
+        <div class="stat-label">Rounds Tracked</div>
+        <div class="stat-value">500+<span>rounds</span></div>
+      </div>
+      <div class="stat reveal reveal-delay-1">
+        <div class="stat-label">Active Groups</div>
+        <div class="stat-value">50+<span>crews</span></div>
+      </div>
+      <div class="stat reveal reveal-delay-2">
+        <div class="stat-label">Beta Rating</div>
+        <div class="stat-value">4.9<span>stars</span></div>
+      </div>
+      <div class="stat reveal reveal-delay-3">
+        <div class="stat-label">Headquarters</div>
+        <div class="stat-value">Nashville<span>TN</span></div>
+      </div>
+    </div>
+  </div>
 </section>
-<section class="py-32 bg-accent-dark relative">
-<div class="max-w-[1400px] mx-auto px-8 editorial-grid">
-<div class="col-span-12 lg:col-span-3 hidden lg:block">
-<div class="vertical-text text-slate-700 font-serif text-9xl leading-none select-none opacity-20">
-                VOICES
-            </div>
-</div>
-<div class="col-span-12 lg:col-span-9">
-<div class="max-w-3xl">
-<span class="material-symbols-outlined text-primary text-5xl mb-12">format_quote</span>
-<p class="text-4xl md:text-6xl font-serif text-white leading-[1.15] italic mb-12">
-                    "Finally an app that does what our group text can't. It turned our annual weekend into a professional-tier tour experience."
-                </p>
-<div class="flex items-center gap-6">
-<div class="size-20 rounded-full bg-slate-800 grayscale overflow-hidden ring-1 ring-primary/30 ring-offset-4 ring-offset-accent-dark">
-<img alt="Michael V." class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMxEsRsS2kQHPuvgAny4XMU2Hekr6SrkqLAIw3qFOeGjwOvjxoHrgc_2JoxGZpeWOwgcKIeuDxXjLAceSe_CNNEtlLgC4o187xNFSJ2sFSXFG7HkyySh0pbJu5e0WA2eMF7U7JrTo1JwXLibM8cRQT_VX8NLLIBrCETh7IUgnPlrYtgoAbFVy_m2YJ6kSmTJu7AX06uK3S-tZQqSlTWJq1P3wT4DIQ0cARLifm3lq_Z_YAo5qdmNrV3DI9tTiakjSnv9F5PlkYAWlm"/>
-</div>
-<div>
-<span class="block text-xl text-white font-serif">Michael V.</span>
-<span class="block text-[10px] uppercase tracking-[0.2em] text-primary font-bold">Verified Beta Tester</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="features-header">
+      <h2 class="reveal">Features for the<br/><em>Modern Golfer.</em></h2>
+      <p class="reveal reveal-delay-1">Every detail is crafted to serve your group's competitive and social needs, with a focus on performance and elegance.</p>
+    </div>
+
+    <div class="feature-hero">
+      <div class="feature-img reveal">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMxEsRsS2kQHPuvgAny4XMU2Hekr6SrkqLAIw3qFOeGjwOvjxoHrgc_2JoxGZpeWOwgcKIeuDxXjLAceSe_CNNEtlLgC4o187xNFSJ2sFSXFG7HkyySh0pbJu5e0WA2eMF7U7JrTo1JwXLibM8cRQT_VX8NLLIBrCETh7IUgnPlrYtgoAbFVy_m2YJ6kSmTJu7AX06uK3S-tZQqSlTWJq1P3wT4DIQ0cARLifm3lq_Z_YAo5qdmNrV3DI9tTiakjSnv9F5PlkYAWlm" alt="Live scoring interface" loading="lazy"/>
+        <div class="feature-img-overlay"></div>
+        <div class="feature-img-text">
+          <div class="label" style="margin-bottom:8px;">Core Engine</div>
+          <h3>Live Scoring &amp; Analytics</h3>
+        </div>
+      </div>
+      <div class="feature-sidebar">
+        <div class="feature-item reveal reveal-delay-1">
+          <div class="label" style="margin-bottom:8px;">Streaming</div>
+          <h3>Broadcast Your Round</h3>
+          <p>Broadcast highlights to the group instantly. The spiritual successor to Marco Polo, designed for the fairway.</p>
+        </div>
+        <div class="feature-item reveal reveal-delay-2">
+          <div class="label" style="margin-bottom:8px;">Wagering</div>
+          <h3>Skins &amp; Bets</h3>
+          <p>Nassau, skins, match play, and 1v1 wagers. Our integrated engine handles the math and auto-settlements.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-cell reveal">
+        <div class="label" style="margin-bottom:12px;">Social</div>
+        <h3>Group Feed</h3>
+        <p>A dedicated hub for photos, voice notes, and high-stakes trash talk. Read receipts included.</p>
+      </div>
+      <div class="feature-cell reveal reveal-delay-1">
+        <div class="label" style="margin-bottom:12px;">Travel</div>
+        <h3>Trip Planning</h3>
+        <p>Shared itineraries, polls for tee times, announcements, and a live GPS map of your entire crew.</p>
+      </div>
+      <div class="feature-cell reveal reveal-delay-2">
+        <div class="label" style="margin-bottom:12px;">Wearable</div>
+        <h3>Apple Watch</h3>
+        <p>Yardages, score entry, and live leaderboards right on your wrist. Glance down, play on.</p>
+      </div>
+    </div>
+  </div>
 </section>
-<footer class="pt-32 pb-16 bg-background-dark border-t border-white/5">
-<div class="max-w-[1400px] mx-auto px-8">
-<div class="editorial-grid mb-24">
-<div class="col-span-12 lg:col-span-4">
-<div class="flex items-center gap-3 mb-8">
-<span class="text-4xl font-serif italic tracking-tighter text-white">PMV.</span>
-</div>
-<p class="text-slate-500 font-light text-sm max-w-xs leading-relaxed">
-                    The definitive social platform for group golf travel. Organize your trip, settle your bets, and broadcast the glory.
-                </p>
-</div>
-<div class="col-span-6 lg:col-span-2">
-<h4 class="text-[10px] uppercase tracking-[0.4em] font-bold text-white mb-8">Directory</h4>
-<ul class="space-y-4 text-sm text-slate-500">
-<li><a class="hover:text-primary transition-colors" href="#">Features</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Beta Access</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Pricing</a></li>
-</ul>
-</div>
-<div class="col-span-6 lg:col-span-2">
-<h4 class="text-[10px] uppercase tracking-[0.4em] font-bold text-white mb-8">Legal</h4>
-<ul class="space-y-4 text-sm text-slate-500">
-<li><a class="hover:text-primary transition-colors" href="/privacy.html">Privacy</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Terms</a></li>
-</ul>
-</div>
-<div class="col-span-12 lg:col-span-4 mt-12 lg:mt-0">
-<h4 class="text-[10px] uppercase tracking-[0.4em] font-bold text-white mb-8">Newsletter</h4>
-<div class="flex border-b border-white/20 pb-2">
-<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder:text-slate-700" placeholder="Email Address" type="email"/>
-<button class="text-[10px] uppercase tracking-widest font-bold text-primary">Subscribe</button>
-</div>
-</div>
-</div>
-<div class="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/5 gap-8">
-<p class="text-[10px] uppercase tracking-[0.3em] text-slate-600">
-                © 2026 PMV GOLF — MADE FOR THE PURISTS IN NASHVILLE, TN.
-            </p>
-<div class="flex items-center gap-12">
-<img alt="App Store" class="h-8 grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all cursor-pointer" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1icOrNhYZglx-WIY3tHzE10eWEcVz6myBjHXrxejOkGlPbO5knwBDu9IbB5IrgBcNN6M-Ai3JcuFCSCVU9aeUllOk7WSbI_xeqyHZjZWb2qjPqB7DQ3CVHL4nUiOV0ZRP7-04Y9l3fJffyMRmH4JS7ILCBV3nbzFbQrAyRiepg9vafMihelCEE8RO4Rz9yR2GarQi8jJ3LhcejRyPE99g4MPc-GFRk9Es8ptC9erLRNClt6DZAPWqf3M6KXg6Ug3xL2zJnM5EgS7d"/>
-</div>
-</div>
-</div>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial" id="voices">
+  <div class="testimonial-bg-text">VOICES</div>
+  <div class="container">
+    <div class="testimonial-inner reveal">
+      <div class="label" style="margin-bottom:32px;">From the Fairway</div>
+      <blockquote>
+        "Finally an app that does what our group text can't. It turned our annual weekend into a professional-tier tour experience."
+      </blockquote>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMxEsRsS2kQHPuvgAny4XMU2Hekr6SrkqLAIw3qFOeGjwOvjxoHrgc_2JoxGZpeWOwgcKIeuDxXjLAceSe_CNNEtlLgC4o187xNFSJ2sFSXFG7HkyySh0pbJu5e0WA2eMF7U7JrTo1JwXLibM8cRQT_VX8NLLIBrCETh7IUgnPlrYtgoAbFVy_m2YJ6kSmTJu7AX06uK3S-tZQqSlTWJq1P3wT4DIQ0cARLifm3lq_Z_YAo5qdmNrV3DI9tTiakjSnv9F5PlkYAWlm" alt="Michael V." loading="lazy"/>
+        </div>
+        <div>
+          <div class="testimonial-name">Michael V.</div>
+          <div class="label" style="font-size:9px; color: var(--green);">Verified Beta Tester</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="get-access">
+  <div class="container">
+    <div class="label reveal" style="margin-bottom:20px;">Join the Movement</div>
+    <h2 class="reveal reveal-delay-1">Ready to Upgrade<br/>Your Trip?</h2>
+    <p class="reveal reveal-delay-2">Download PMV and turn your next golf weekend into an experience worth remembering.</p>
+    <div class="cta-buttons reveal reveal-delay-3">
+      <a href="mailto:beta@pmvgolf.com" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Request Beta Access
+      </a>
+      <a href="#features" class="btn-ghost">Explore Features &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo" style="font-size:32px;">PMV<span style="color:var(--green)">.</span></a>
+        <p>The definitive social platform for group golf travel. Organize your trip, settle your bets, broadcast the glory.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Directory</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#get-access">Beta Access</a></li>
+          <li><a href="mailto:support@pmvgolf.com">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="/privacy.html">Privacy Policy</a></li>
+          <li><a href="mailto:support@pmvgolf.com">Support</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Stay in the Loop</h4>
+        <form class="newsletter-form" id="newsletter-form">
+          <input type="email" placeholder="your@email.com" required/>
+          <button type="submit">Subscribe</button>
+        </form>
+        <div class="newsletter-success" id="newsletter-success">Thanks! We'll be in touch.</div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 PMV Golf &mdash; Made for the purists in Nashville, TN.</p>
+      <a href="/privacy.html" style="font-size:11px; color: var(--text-muted); transition: color 0.2s;" onmouseover="this.style.color='var(--green)'" onmouseout="this.style.color='var(--text-muted)'">Privacy Policy</a>
+    </div>
+  </div>
 </footer>
 
-</body></html>
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0})" aria-label="Back to top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Nav scroll state
+const nav = document.getElementById('nav');
+const backToTop = document.getElementById('back-to-top');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+  backToTop.classList.toggle('visible', window.scrollY > 600);
+}, { passive: true });
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+  document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+});
+function closeMobile() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Newsletter
+document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  this.style.display = 'none';
+  document.getElementById('newsletter-success').style.display = 'block';
+});
+
+// Active nav link
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
+sections.forEach(s => navObserver.observe(s));
+</script>
+</body>
+</html>
